@@ -10,6 +10,7 @@ import (
 
 	"snippetbox/internal/models"
 
+	"github.com/go-playground/form/v4"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -19,6 +20,7 @@ type application struct {
 	snippets      *models.SnippetModel
 	cfg           config
 	templateCache map[string]*template.Template
+	formDecoder   *form.Decoder
 }
 
 type config struct {
@@ -28,7 +30,6 @@ type config struct {
 }
 
 func main() {
-
 	var cfg config
 	flag.StringVar(&cfg.addr, "addr", ":4000", "HTTP network address")
 	flag.StringVar(&cfg.staticDir, "static-dir", "./ui/static", "Path to static assets")
@@ -56,6 +57,7 @@ func main() {
 		cfg:           cfg,
 		snippets:      &models.SnippetModel{DB: db},
 		templateCache: templateCache,
+		formDecoder:   form.NewDecoder(),
 	}
 
 	srv := &http.Server{
