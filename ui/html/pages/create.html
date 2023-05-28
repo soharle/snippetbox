@@ -2,7 +2,6 @@
 <form action="/snippet/create" method="POST">
   <div>
     <label>Title:</label>
-
     {{with .Form.FieldErrors.title}}
     <label class="error">{{.}}</label>
     {{end}}
@@ -11,9 +10,11 @@
   </div>
   <div>
     <label>Content:</label>
+
     {{with .Form.FieldErrors.content}}
     <label class="error">{{.}}</label>
     {{end}}
+
     <textarea name="content">{{.Form.Content}}</textarea>
   </div>
   <div>
@@ -22,6 +23,7 @@
     {{with .Form.FieldErrors.expires}}
     <label class="error">{{.}}</label>
     {{end}}
+
     <input
       type="radio"
       name="expires"
@@ -32,7 +34,6 @@
       365)}}checked{{end}}
     />
     One Year
-    <!-- And we do the same for the other possible values too... -->
     <input
       type="radio"
       name="expires"
