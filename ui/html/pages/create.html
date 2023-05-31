@@ -1,12 +1,11 @@
 {{define "title"}}Create a New Snippet{{end}} {{define "main"}}
 <form action="/snippet/create" method="POST">
+  <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
   <div>
     <label>Title:</label>
-
     {{with .Form.FieldErrors.title}}
     <label class="error">{{.}}</label>
     {{end}}
-
     <input type="text" name="title" value="{{.Form.Title}}" />
   </div>
   <div>
@@ -18,7 +17,6 @@
   </div>
   <div>
     <label>Delete in:</label>
-
     {{with .Form.FieldErrors.expires}}
     <label class="error">{{.}}</label>
     {{end}}
@@ -32,7 +30,6 @@
       365)}}checked{{end}}
     />
     One Year
-    <!-- And we do the same for the other possible values too... -->
     <input
       type="radio"
       name="expires"
